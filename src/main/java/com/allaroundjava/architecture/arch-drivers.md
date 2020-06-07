@@ -2,7 +2,8 @@
 This document lists important architectural drivers of credit card system
 
 ##Functional Requirements
-* Operations data needs to be available to customers at all times
+* Operations data needs to be available to customers when application is running
+* Operations data does not need to be available for long time or across application restarts.
 * Statement information needs to capture all card operations for given period
 * The same operation cannot be included in more than one statement
 * Statement needs to be sent in a text form to user email address
