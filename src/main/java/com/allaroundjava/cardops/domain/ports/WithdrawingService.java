@@ -12,13 +12,13 @@ import java.util.Optional;
 @Transactional
 public class WithdrawingService {
 
-    private final CreditCards creditCards;
+    private final CreditCardsRepository creditCardsRepository;
     private final WithdrawalsRepository withdrawalsRepository;
     private final WithdrawalMessageSender messageSender;
 
 
     public Optional<Withdrawal> withdraw(WithdrawCommand withdrawCommand) {
-        return creditCards.findById(withdrawCommand.getCardId())
+        return creditCardsRepository.findById(withdrawCommand.getCardId())
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
                 .map(this::publish)
                 .map(creditCard -> new Withdrawal(creditCard.getId(), withdrawCommand.getAmount(), Instant.now()))
@@ -26,7 +26,7 @@ public class WithdrawingService {
     }
 
     private CreditCard publish(CreditCard creditCard) {
-        creditCards.save(creditCard);
+        creditCardsRepository.save(creditCard);
         return creditCard;
     }
 

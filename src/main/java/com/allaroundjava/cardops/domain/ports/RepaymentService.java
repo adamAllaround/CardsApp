@@ -7,10 +7,10 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public class RepaymentService {
-    private final CreditCards creditCards;
+    private final CreditCardsRepository creditCardsRepository;
 
     public Optional<CreditCard> repay(RepayCommand command) {
-        return creditCards.findById(command.getCardId())
+        return creditCardsRepository.findById(command.getCardId())
                 .map(card -> card.repayMoney(command.getAmount()));
     }
 }

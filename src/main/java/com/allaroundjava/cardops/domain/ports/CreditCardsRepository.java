@@ -4,7 +4,7 @@ import com.allaroundjava.cardops.domain.model.CreditCard;
 
 import java.util.Optional;
 
-public interface CreditCards {
+public interface CreditCardsRepository {
     Optional<CreditCard> findById(Long id);
     void save(CreditCard card);
 }

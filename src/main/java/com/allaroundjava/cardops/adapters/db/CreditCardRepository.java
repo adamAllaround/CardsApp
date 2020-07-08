@@ -1,7 +1,7 @@
 package com.allaroundjava.cardops.adapters.db;
 
 import com.allaroundjava.cardops.domain.model.CreditCard;
-import com.allaroundjava.cardops.domain.ports.CreditCards;
+import com.allaroundjava.cardops.domain.ports.CreditCardsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
-class CreditCardRepository implements CreditCards {
+class CreditCardRepository implements CreditCardsRepository {
     final CreditCardInternalRepository creditCardInternalRepository;
 
     public Optional<CreditCard> findById(Long id) {
