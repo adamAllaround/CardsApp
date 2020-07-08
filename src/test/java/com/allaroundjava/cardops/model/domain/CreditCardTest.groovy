@@ -1,4 +1,4 @@
-package com.allaroundjava.cardops.model
+package com.allaroundjava.cardops.model.domain
 
 import spock.lang.Specification
 

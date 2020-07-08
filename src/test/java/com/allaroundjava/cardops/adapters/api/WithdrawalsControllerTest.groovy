@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.api
 
-import com.allaroundjava.cardops.ports.Withdrawals
-import com.allaroundjava.cardops.ports.WithdrawCommand
-import com.allaroundjava.cardops.ports.Withdrawing
+import com.allaroundjava.cardops.model.ports.WithdrawCommand
+import com.allaroundjava.cardops.model.ports.Withdrawals
+import com.allaroundjava.cardops.model.ports.Withdrawing
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class WithdrawalsControllerTest extends Specification {
     public static final long CARD_ID = 1L
-    private MockMvc mockMvc;
+    private MockMvc mockMvc
     private Withdrawing withdrawing = Mock()
     private Withdrawals withdrawals = Mock()
     private WithdrawalsController withdrawalsController = new WithdrawalsController(withdrawing, withdrawals)
@@ -37,8 +37,8 @@ class WithdrawalsControllerTest extends Specification {
 
     def "Listing valid withdrawals"() {
         when: "Card has withdrawals"
-        withdrawals.findAllByCardId(CARD_ID) >> [new com.allaroundjava.cardops.model.Withdrawal(1,1,300, Instant.now()),
-                                                 new com.allaroundjava.cardops.model.Withdrawal(2,1,100,Instant.now())]
+        withdrawals.findAllByCardId(CARD_ID) >> [new Withdrawal(1,1,300, Instant.now()),
+                                                 new Withdrawal(2,1,100,Instant.now())]
 
         then: "Withdrawals are listed"
         mockMvc.perform(get("/withdrawals/${CARD_ID}"))
@@ -57,7 +57,7 @@ class WithdrawalsControllerTest extends Specification {
 
     def "Withdrawing succeccsully"() {
         when: "Withdrawing successfully"
-        withdrawing.withdraw(_ as WithdrawCommand) >> Optional.of(new com.allaroundjava.cardops.model.Withdrawal(1,1,200,Instant.now()))
+        withdrawing.withdraw(_ as WithdrawCommand) >> Optional.of(new com.allaroundjava.cardops.model.domain.Withdrawal(1,1,200,Instant.now()))
 
         then: "OK"
         mockMvc.perform(post("/withdrawals/$CARD_ID").content('{"amount" : 200}').contentType(MediaType.APPLICATION_JSON))

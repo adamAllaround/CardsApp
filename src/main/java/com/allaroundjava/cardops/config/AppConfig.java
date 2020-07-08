@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.config;
 
-import com.allaroundjava.cardops.ports.CreditCards;
-import com.allaroundjava.cardops.ports.Withdrawals;
-import com.allaroundjava.cardops.ports.Withdrawing;
+import com.allaroundjava.cardops.model.ports.CreditCards;
+import com.allaroundjava.cardops.model.ports.Withdrawals;
+import com.allaroundjava.cardops.model.ports.Withdrawing;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

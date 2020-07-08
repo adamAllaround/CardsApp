@@ -1,7 +1,7 @@
 package com.allaroundjava.cardops.adapters.db;
 
-import com.allaroundjava.cardops.model.CreditCard;
-import com.allaroundjava.cardops.ports.CreditCards;
+import com.allaroundjava.cardops.model.domain.CreditCard;
+import com.allaroundjava.cardops.model.ports.CreditCards;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

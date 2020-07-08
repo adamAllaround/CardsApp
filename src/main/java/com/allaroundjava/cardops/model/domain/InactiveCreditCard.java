@@ -1,4 +1,4 @@
-package com.allaroundjava.cardops.model;
+package com.allaroundjava.cardops.model.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

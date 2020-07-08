@@ -1,6 +1,6 @@
-package com.allaroundjava.cardops.ports;
+package com.allaroundjava.cardops.model.ports;
 
-import com.allaroundjava.cardops.model.Withdrawal;
+import com.allaroundjava.cardops.model.domain.Withdrawal;
 
 import java.util.Collection;
 
