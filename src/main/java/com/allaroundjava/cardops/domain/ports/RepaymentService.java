@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class Repaying {
+public class RepaymentService {
     private final CreditCards creditCards;
 
     public Optional<CreditCard> repay(RepayCommand command) {

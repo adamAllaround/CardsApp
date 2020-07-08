@@ -17,7 +17,7 @@ class CreditCardRepository implements CreditCards {
         return creditCardInternalRepository.findById(id).map(CreditCardEntity::toDomainModel);
     }
 
-    public void publish(CreditCard creditCard) {
+    public void save(CreditCard creditCard) {
         CreditCardEntity entity = creditCardInternalRepository.findById(creditCard.getId())
                 .map(updateExisting(creditCard))
                 .orElse(createNew(creditCard));

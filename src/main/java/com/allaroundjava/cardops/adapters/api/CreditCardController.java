@@ -1,7 +1,7 @@
 package com.allaroundjava.cardops.adapters.api;
 
 import com.allaroundjava.cardops.domain.ports.RepayCommand;
-import com.allaroundjava.cardops.domain.ports.Repaying;
+import com.allaroundjava.cardops.domain.ports.RepaymentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -19,11 +19,11 @@ import java.math.BigDecimal;
 @RequestMapping("/creditcards")
 @RequiredArgsConstructor
 public class CreditCardController {
-    private final Repaying repaying;
+    private final RepaymentService repaymentService;
 
     @PostMapping("/{cardId}/repayments")
     public ResponseEntity<CreditCard> repay(@PathVariable Long cardId, @RequestBody RepaymentRequest repayment) {
-        return repaying.repay(new RepayCommand(cardId, repayment.getAmount()))
+        return repaymentService.repay(new RepayCommand(cardId, repayment.getAmount()))
                 .map(CreditCard::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());

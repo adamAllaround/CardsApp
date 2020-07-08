@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.api;
 
 import com.allaroundjava.cardops.domain.ports.WithdrawCommand;
-import com.allaroundjava.cardops.domain.ports.Withdrawals;
-import com.allaroundjava.cardops.domain.ports.Withdrawing;
+import com.allaroundjava.cardops.domain.ports.WithdrawalsRepository;
+import com.allaroundjava.cardops.domain.ports.WithdrawingService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/withdrawals")
 @RequiredArgsConstructor
 class WithdrawalsController {
-    private final Withdrawing withdrawing;
-    private final Withdrawals withdrawals;
+    private final WithdrawingService withdrawingService;
+    private final WithdrawalsRepository withdrawalsRepository;
 
     @GetMapping("/{cardId}")
     ResponseEntity<Collection<Withdrawal>> listWithdrawals(@PathVariable Long cardId) {
-        return ResponseEntity.ok(withdrawals.findAllByCardId(cardId)
+        return ResponseEntity.ok(withdrawalsRepository.findAllByCardId(cardId)
                 .stream()
                 .map(Withdrawal::new)
                 .collect(Collectors.toList()));
@@ -38,7 +38,7 @@ class WithdrawalsController {
 
     @PostMapping("/{cardId}")
     ResponseEntity<Withdrawal> withdraw(@PathVariable Long cardId, @RequestBody Withdrawal request) {
-        Optional<com.allaroundjava.cardops.domain.model.Withdrawal> result = withdrawing.withdraw(new WithdrawCommand(cardId, request.getAmount()));
+        Optional<com.allaroundjava.cardops.domain.model.Withdrawal> result = withdrawingService.withdraw(new WithdrawCommand(cardId, request.getAmount()));
         return result.map(Withdrawal::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());

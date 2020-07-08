@@ -2,7 +2,7 @@ package com.allaroundjava.cardops.adapters.api
 
 import com.allaroundjava.cardops.domain.model.ActiveCreditCard
 import com.allaroundjava.cardops.domain.ports.RepayCommand
-import com.allaroundjava.cardops.domain.ports.Repaying
+import com.allaroundjava.cardops.domain.ports.RepaymentService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class CreditCardControllerTest extends Specification {
-    private Repaying repaying = Mock()
+    private RepaymentService repaying = Mock()
     private CreditCardController repaymentController = new CreditCardController(repaying)
     private MockMvc mockMvc
 

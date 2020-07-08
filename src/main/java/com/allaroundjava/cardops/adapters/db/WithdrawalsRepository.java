@@ -2,7 +2,6 @@ package com.allaroundjava.cardops.adapters.db;
 
 import com.allaroundjava.cardops.domain.model.CreditCardDatabaseException;
 import com.allaroundjava.cardops.domain.model.Withdrawal;
-import com.allaroundjava.cardops.domain.ports.Withdrawals;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +10,11 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-class WithdrawalsRepository implements Withdrawals {
+class WithdrawalsRepository implements com.allaroundjava.cardops.domain.ports.WithdrawalsRepository {
     private final WithdrawalsInternalRepository withdrawalsInternalRepository;
     private final CreditCardInternalRepository creditCardInternalRepository;
     @Override
-    public void publish(Withdrawal withdrawal) {
+    public void save(Withdrawal withdrawal) {
         CreditCardEntity creditCardEntity = creditCardInternalRepository
                 .findById(withdrawal.getCreditCardId())
                 .orElseThrow(CreditCardDatabaseException::new);

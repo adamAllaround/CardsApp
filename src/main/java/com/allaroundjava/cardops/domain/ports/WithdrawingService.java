@@ -10,10 +10,12 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
-public class Withdrawing {
+public class WithdrawingService {
 
     private final CreditCards creditCards;
-    private final Withdrawals withdrawals;
+    private final WithdrawalsRepository withdrawalsRepository;
+    private final WithdrawalMessageSender messageSender;
+
 
     public Optional<Withdrawal> withdraw(WithdrawCommand withdrawCommand) {
         return creditCards.findById(withdrawCommand.getCardId())
@@ -24,12 +26,13 @@ public class Withdrawing {
     }
 
     private CreditCard publish(CreditCard creditCard) {
-        creditCards.publish(creditCard);
+        creditCards.save(creditCard);
         return creditCard;
     }
 
     private Withdrawal publish(Withdrawal withdrawal) {
-        withdrawals.publish(withdrawal);
+        withdrawalsRepository.save(withdrawal);
+        messageSender.sendMessageForNew(withdrawal);
         return withdrawal;
     }
 

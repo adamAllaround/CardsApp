@@ -4,8 +4,8 @@ import com.allaroundjava.cardops.domain.model.Withdrawal;
 
 import java.util.Collection;
 
-public interface Withdrawals {
-    void publish(Withdrawal withdrawal);
+public interface WithdrawalsRepository {
+    void save(Withdrawal withdrawal);
 
     Collection<Withdrawal> findAllByCardId(Long cardId);
 }

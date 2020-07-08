@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.api
 
 import com.allaroundjava.cardops.domain.ports.WithdrawCommand
-import com.allaroundjava.cardops.domain.ports.Withdrawals
-import com.allaroundjava.cardops.domain.ports.Withdrawing
+import com.allaroundjava.cardops.domain.ports.WithdrawalsRepository
+import com.allaroundjava.cardops.domain.ports.WithdrawingService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -17,11 +17,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class WithdrawalsControllerTest extends Specification {
+class WithdrawalsRepositoryControllerTest extends Specification {
     public static final long CARD_ID = 1L
     private MockMvc mockMvc
-    private Withdrawing withdrawing = Mock()
-    private Withdrawals withdrawals = Mock()
+    private WithdrawingService withdrawing = Mock()
+    private WithdrawalsRepository withdrawals = Mock()
     private WithdrawalsController withdrawalsController = new WithdrawalsController(withdrawing, withdrawals)
 
     void setup() {
