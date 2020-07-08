@@ -1,9 +1,9 @@
 package com.allaroundjava.cardops.adapters.db;
 
-import com.allaroundjava.cardops.model.domain.ActiveCreditCard;
-import com.allaroundjava.cardops.model.domain.CreditCard;
-import com.allaroundjava.cardops.model.domain.CreditCardDatabaseException;
-import com.allaroundjava.cardops.model.domain.InactiveCreditCard;
+import com.allaroundjava.cardops.domain.model.ActiveCreditCard;
+import com.allaroundjava.cardops.domain.model.CreditCard;
+import com.allaroundjava.cardops.domain.model.CreditCardDatabaseException;
+import com.allaroundjava.cardops.domain.model.InactiveCreditCard;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,6 +1,6 @@
 package com.allaroundjava.cardops.adapters.db;
 
-import com.allaroundjava.cardops.model.domain.Withdrawal;
+import com.allaroundjava.cardops.domain.model.Withdrawal;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Immutable;

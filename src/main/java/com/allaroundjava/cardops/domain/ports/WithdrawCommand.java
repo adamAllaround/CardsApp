@@ -1,4 +1,4 @@
-package com.allaroundjava.cardops.model.ports;
+package com.allaroundjava.cardops.domain.ports;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

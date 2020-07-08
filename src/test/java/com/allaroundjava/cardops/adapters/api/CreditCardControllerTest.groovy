@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.api
 
-import com.allaroundjava.cardops.model.domain.ActiveCreditCard
-import com.allaroundjava.cardops.model.ports.RepayCommand
-import com.allaroundjava.cardops.model.ports.Repaying
+import com.allaroundjava.cardops.domain.model.ActiveCreditCard
+import com.allaroundjava.cardops.domain.ports.RepayCommand
+import com.allaroundjava.cardops.domain.ports.Repaying
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc

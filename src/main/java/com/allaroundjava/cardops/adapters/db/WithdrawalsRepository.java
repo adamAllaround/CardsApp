@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.db;
 
-import com.allaroundjava.cardops.model.domain.CreditCardDatabaseException;
-import com.allaroundjava.cardops.model.domain.Withdrawal;
-import com.allaroundjava.cardops.model.ports.Withdrawals;
+import com.allaroundjava.cardops.domain.model.CreditCardDatabaseException;
+import com.allaroundjava.cardops.domain.model.Withdrawal;
+import com.allaroundjava.cardops.domain.ports.Withdrawals;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

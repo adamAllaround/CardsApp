@@ -1,7 +1,7 @@
 package com.allaroundjava.cardops.adapters.api;
 
-import com.allaroundjava.cardops.model.ports.RepayCommand;
-import com.allaroundjava.cardops.model.ports.Repaying;
+import com.allaroundjava.cardops.domain.ports.RepayCommand;
+import com.allaroundjava.cardops.domain.ports.Repaying;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -40,7 +40,7 @@ class CreditCard {
     public CreditCard() {
     }
 
-    public CreditCard(com.allaroundjava.cardops.model.domain.CreditCard creditCard) {
+    public CreditCard(com.allaroundjava.cardops.domain.model.CreditCard creditCard) {
         this.id = creditCard.getId();
         this.limit = creditCard.getLimit();
         this.currentAmount = creditCard.getCurrentAmount();

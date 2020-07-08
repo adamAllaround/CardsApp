@@ -1,4 +1,4 @@
-package com.allaroundjava.cardops.model.domain;
+package com.allaroundjava.cardops.domain.model;
 
 public class CreditCardDatabaseException extends RuntimeException {
 }

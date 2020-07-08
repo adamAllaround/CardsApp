@@ -1,8 +1,8 @@
 package com.allaroundjava.cardops.adapters.api
 
-import com.allaroundjava.cardops.model.ports.WithdrawCommand
-import com.allaroundjava.cardops.model.ports.Withdrawals
-import com.allaroundjava.cardops.model.ports.Withdrawing
+import com.allaroundjava.cardops.domain.ports.WithdrawCommand
+import com.allaroundjava.cardops.domain.ports.Withdrawals
+import com.allaroundjava.cardops.domain.ports.Withdrawing
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -57,7 +57,7 @@ class WithdrawalsControllerTest extends Specification {
 
     def "Withdrawing succeccsully"() {
         when: "Withdrawing successfully"
-        withdrawing.withdraw(_ as WithdrawCommand) >> Optional.of(new com.allaroundjava.cardops.model.domain.Withdrawal(1,1,200,Instant.now()))
+        withdrawing.withdraw(_ as WithdrawCommand) >> Optional.of(new com.allaroundjava.cardops.domain.model.Withdrawal(1,1,200,Instant.now()))
 
         then: "OK"
         mockMvc.perform(post("/withdrawals/$CARD_ID").content('{"amount" : 200}').contentType(MediaType.APPLICATION_JSON))

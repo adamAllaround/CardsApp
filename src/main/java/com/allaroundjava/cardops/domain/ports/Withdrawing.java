@@ -1,7 +1,7 @@
-package com.allaroundjava.cardops.model.ports;
+package com.allaroundjava.cardops.domain.ports;
 
-import com.allaroundjava.cardops.model.domain.CreditCard;
-import com.allaroundjava.cardops.model.domain.Withdrawal;
+import com.allaroundjava.cardops.domain.model.CreditCard;
+import com.allaroundjava.cardops.domain.model.Withdrawal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 

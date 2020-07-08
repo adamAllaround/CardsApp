@@ -1,6 +1,6 @@
-package com.allaroundjava.cardops.model.ports;
+package com.allaroundjava.cardops.domain.ports;
 
-import com.allaroundjava.cardops.model.domain.CreditCard;
+import com.allaroundjava.cardops.domain.model.CreditCard;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
