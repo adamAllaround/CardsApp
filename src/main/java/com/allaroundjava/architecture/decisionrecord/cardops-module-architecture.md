@@ -9,6 +9,9 @@ Need to choose an applicable architectural approach to cardops module so that it
 * Time estimated for completion is 2 months
 * The application should be a prototype - not an enterprise class solution
 * The database should be quick to set up, best if it's known already
+* This domain is treated as a core domain
+* We're pootentially looking into changing the business rules around withdrawing, maybe introducing 
+new card types
 
 ##Decision
 This module is best realized with Hexagonal Architecture, aka ports and adapters. Since its the core of 
