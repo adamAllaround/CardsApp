@@ -5,7 +5,7 @@ import com.allaroundjava.cardops.domain.ports.WithdrawalMessageSender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AmqWithrdawalMessageSender implements WithdrawalMessageSender {
+public class RabbitMqWithrdawalMessageSender implements WithdrawalMessageSender {
     @Override
     public void sendMessageForNew(Withdrawal withdrawal) {
 
