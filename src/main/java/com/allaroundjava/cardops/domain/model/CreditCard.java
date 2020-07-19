@@ -11,7 +11,7 @@ public interface CreditCard {
 
     CreditCard activate();
 
-    Long getId();
+    CardNumber getId();
 
     BigDecimal getCurrentAmount();
 

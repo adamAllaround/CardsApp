@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 @Getter
 public class ActiveCreditCard implements CreditCard {
-    private final Long id;
+    private final CardNumber id;
     private final BigDecimal limit;
     private final BigDecimal currentAmount;
 

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Getter
 @RequiredArgsConstructor
 public class InactiveCreditCard implements CreditCard{
-    private final Long id;
+    private final CardNumber id;
     @Override
     public CreditCard assignLimit(BigDecimal limit) {
         throw new CreditCardOperationException();
