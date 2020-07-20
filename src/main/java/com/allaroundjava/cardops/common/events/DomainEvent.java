@@ -6,7 +6,7 @@ public interface DomainEvent {
 
     Long getEventId();
 
-    Long getAggregateId();
+    String getAggregateId();
 
     Instant getWhen();
 }

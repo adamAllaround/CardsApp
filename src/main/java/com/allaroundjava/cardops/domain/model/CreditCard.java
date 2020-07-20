@@ -1,8 +1,10 @@
 package com.allaroundjava.cardops.domain.model;
 
+import com.allaroundjava.cardops.common.domain.DomainObject;
+
 import java.math.BigDecimal;
 
-public interface CreditCard {
+public interface CreditCard extends DomainObject {
     CreditCard assignLimit(BigDecimal limit);
 
     CreditCard repayMoney(BigDecimal amount);
@@ -12,8 +14,4 @@ public interface CreditCard {
     CreditCard activate();
 
     CardNumber getId();
-
-    BigDecimal getCurrentAmount();
-
-    BigDecimal getLimit();
 }
