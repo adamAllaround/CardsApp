@@ -26,7 +26,8 @@ public class WithdrawingService {
     }
 
     private CreditCard publish(CreditCard creditCard) {
-        creditCardsRepository.save(creditCard);
+        creditCardsRepository.save(creditCard.snapshot());
+        //TODO publish events
         return creditCard;
     }
 

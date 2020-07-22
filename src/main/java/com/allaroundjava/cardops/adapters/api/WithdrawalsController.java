@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,7 +50,7 @@ class WithdrawalsController {
 @Getter
 @Setter
 class Withdrawal {
-    Long id;
+    UUID id;
     BigDecimal amount;
     Instant when;
 

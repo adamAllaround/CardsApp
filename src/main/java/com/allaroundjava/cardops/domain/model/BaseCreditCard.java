@@ -8,8 +8,10 @@ import java.util.List;
 
 abstract class BaseCreditCard implements CreditCard {
     private final List<DomainEvent> events;
+    private CardNumber id;
 
-    public BaseCreditCard() {
+    public BaseCreditCard(CardNumber id) {
+        this.id = id;
         events = new ArrayList<>();
     }
 
@@ -21,5 +23,10 @@ abstract class BaseCreditCard implements CreditCard {
         List<DomainEvent> result = Collections.unmodifiableList(events);
         events.clear();
         return result;
+    }
+
+    @Override
+    public CardNumber getId() {
+        return this.id;
     }
 }

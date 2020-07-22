@@ -1,7 +1,7 @@
 package com.allaroundjava.cardops.domain.model;
 
+import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -10,41 +10,50 @@ import static com.allaroundjava.cardops.domain.model.CreditCardEvent.LimitAssign
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.MoneyRepaid.repayNow;
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.MoneyWithdrawn.withdrawNow;
 
-@RequiredArgsConstructor
 @Getter
 public class ActiveCreditCard extends BaseCreditCard {
-    private final CardNumber id;
     private final BigDecimal limit;
     private final BigDecimal currentAmount;
 
+    public ActiveCreditCard(CardNumber id, BigDecimal limit, BigDecimal currentAmount) {
+        super(id);
+        this.limit = limit;
+        this.currentAmount = currentAmount;
+    }
+
     @Override
     public CreditCard assignLimit(BigDecimal limit) {
-        addEvent(assignLimitNow(this.id, limit));
-        return new ActiveCreditCard(this.id, limit, this.currentAmount);
+        addEvent(assignLimitNow(getId(), limit));
+        return new ActiveCreditCard(getId(), limit, this.currentAmount);
     }
 
     @Override
     public CreditCard repayMoney(BigDecimal amount) {
         if (amount.compareTo(currentAmount.abs()) > 0) {
-            addEvent(failNow(this.id, "Cannot Repay more than is owed"));
+            addEvent(failNow(getId(), "Cannot Repay more than is owed"));
             return this;
         }
-        addEvent(repayNow(this.id, amount));
-        return new ActiveCreditCard(this.id, this.limit, currentAmount.add(amount));
+        addEvent(repayNow(getId(), amount));
+        return new ActiveCreditCard(getId(), this.limit, currentAmount.add(amount));
     }
 
     @Override
     public CreditCard withdraw(BigDecimal amount) {
         if (currentAmount.subtract(amount).compareTo(limit.negate()) < 0) {
-            addEvent(failNow(this.id, "Cannot withdraw that amount"));
+            addEvent(failNow(getId(), "Cannot withdraw that amount"));
             return this;
         }
-        addEvent(withdrawNow(this.id, amount));
-        return new ActiveCreditCard(this.id, this.limit, currentAmount.subtract(amount));
+        addEvent(withdrawNow(getId(), amount));
+        return new ActiveCreditCard(getId(), this.limit, currentAmount.subtract(amount));
     }
 
     @Override
     public CreditCard activate() {
         return this;
+    }
+
+    @Override
+    public CreditCardSnapshot snapshot() {
+        return CreditCardSnapshot.active(getId(), this.currentAmount, this.limit);
     }
 }

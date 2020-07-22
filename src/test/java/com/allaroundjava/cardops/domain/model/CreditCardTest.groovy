@@ -13,7 +13,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.assignLimit(BigDecimal.valueOf(100))
         then:
-        thrown(CreditCardOperationException)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
     }
 
     def "can assign limit"() {
@@ -22,14 +22,15 @@ class CreditCardTest extends Specification {
         when:
         creditCard.assignLimit(BigDecimal.valueOf(100))
         then:
-        notThrown(Throwable)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.LimitAssigned}
+
     }
 
     def "when card not active then cannot withdraw"() {
         when:
         creditCard.withdraw(BigDecimal.TEN)
         then:
-        thrown(CreditCardOperationException)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
     }
 
     def "when more than limit then cannot withdraw"() {
@@ -39,7 +40,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.withdraw(BigDecimal.valueOf(11))
         then:
-        thrown(CreditCardOperationException)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
     }
 
     def "can withdraw"() {
@@ -49,7 +50,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.withdraw(BigDecimal.TEN)
         then:
-        notThrown(Throwable)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.MoneyWithdrawn}
     }
 
 
@@ -61,7 +62,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.repayMoney(BigDecimal.valueOf(12))
         then:
-        thrown(CreditCardOperationException)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
     }
 
     def "can repay"() {
@@ -72,6 +73,6 @@ class CreditCardTest extends Specification {
         when:
         creditCard.repayMoney(BigDecimal.valueOf(8))
         then:
-        notThrown(Throwable)
+        creditCard.getEvents().every {it instanceof CreditCardEvent.MoneyRepaid}
     }
 }

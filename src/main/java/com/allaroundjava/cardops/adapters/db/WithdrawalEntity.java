@@ -1,5 +1,6 @@
 package com.allaroundjava.cardops.adapters.db;
 
+import com.allaroundjava.cardops.domain.model.CardNumber;
 import com.allaroundjava.cardops.domain.model.Withdrawal;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Immutable
@@ -22,8 +24,7 @@ import java.time.Instant;
 class WithdrawalEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID id;
 
     private BigDecimal amount;
     private Instant when;
@@ -39,6 +40,6 @@ class WithdrawalEntity {
     }
 
     public Withdrawal toDomainModel() {
-        return new Withdrawal(this.id, this.creditCard.id, this.amount, this.when);
+        return new Withdrawal(creditCard.id , this.creditCard.id, this.amount, this.when);
     }
 }

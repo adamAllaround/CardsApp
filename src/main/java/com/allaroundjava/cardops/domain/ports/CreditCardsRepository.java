@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface CreditCardsRepository {
     Optional<CreditCard> findById(Long id);
-    void save(CreditCard card);
+    void save(CreditCardSnapshot card);
 }

@@ -1,5 +1,6 @@
 package com.allaroundjava.cardops.adapters.api;
 
+import com.allaroundjava.cardops.domain.model.CardNumber;
 import com.allaroundjava.cardops.domain.ports.RepayCommand;
 import com.allaroundjava.cardops.domain.ports.RepaymentService;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class CreditCardController {
 @Setter
 @Getter
 class CreditCard {
-    Long id;
+    CardNumber id;
     BigDecimal limit;
     BigDecimal currentAmount;
 

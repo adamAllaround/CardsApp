@@ -72,6 +72,4 @@ public interface CreditCardEvent extends DomainEvent {
             return new MoneyWithdrawn(cardId, amount, Instant.now());
         }
     }
-
-
 }
