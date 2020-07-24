@@ -1,28 +1,30 @@
 package com.allaroundjava.cardops.domain.ports;
 
+import com.allaroundjava.cardops.common.domain.DomainObject;
+import com.allaroundjava.cardops.common.events.DomainEvent;
 import com.allaroundjava.cardops.domain.model.CreditCard;
-import com.allaroundjava.cardops.domain.model.Withdrawal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-import java.util.Optional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
 public class WithdrawingService {
 
     private final CreditCardsRepository creditCardsRepository;
-    private final WithdrawalsRepository withdrawalsRepository;
-    private final WithdrawalMessageSender messageSender;
+    private final DomainEventSender messageSender;
 
-
-    public Optional<Withdrawal> withdraw(WithdrawCommand withdrawCommand) {
-        return creditCardsRepository.findById(withdrawCommand.getCardId())
+    public void withdraw(WithdrawCommand withdrawCommand) {
+        creditCardsRepository.findById(withdrawCommand.getCardId())
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
                 .map(this::publish)
-                .map(creditCard -> new Withdrawal(creditCard.getId(), withdrawCommand.getAmount(), Instant.now()))
-                .map(this::publish);
+                .map(DomainObject::getEvents)
+                .ifPresent(this::informOthers);
+    }
+
+    private void informOthers(List<DomainEvent> events) {
+        events.forEach(messageSender::send);
     }
 
     private CreditCard publish(CreditCard creditCard) {
@@ -30,11 +32,4 @@ public class WithdrawingService {
         //TODO publish events
         return creditCard;
     }
-
-    private Withdrawal publish(Withdrawal withdrawal) {
-        withdrawalsRepository.save(withdrawal);
-        messageSender.sendMessageForNew(withdrawal);
-        return withdrawal;
-    }
-
 }
