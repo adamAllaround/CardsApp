@@ -8,14 +8,14 @@ import java.util.List;
 
 abstract class BaseCreditCard implements CreditCard {
     private final List<DomainEvent> events;
-    private CardNumber id;
+    private final CardNumber id;
 
-    public BaseCreditCard(CardNumber id) {
+    BaseCreditCard(CardNumber id) {
         this.id = id;
         events = new ArrayList<>();
     }
 
-    protected void addEvent(DomainEvent event) {
+    void addEvent(DomainEvent event) {
         events.add(event);
     }
 
@@ -28,5 +28,20 @@ abstract class BaseCreditCard implements CreditCard {
     @Override
     public CardNumber getId() {
         return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseCreditCard that = (BaseCreditCard) o;
+
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

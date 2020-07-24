@@ -1,10 +1,11 @@
 package com.allaroundjava.cardops.common.events;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public interface DomainEvent {
 
-    Long getEventId();
+    UUID getEventId();
 
     String getAggregateId();
 

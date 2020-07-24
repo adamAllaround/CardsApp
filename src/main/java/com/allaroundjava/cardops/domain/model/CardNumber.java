@@ -24,4 +24,19 @@ public final class CardNumber {
     private static boolean regexMatch(String cardNumber) {
         return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CardNumber that = (CardNumber) o;
+
+        return cardNumber.equals(that.cardNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return cardNumber.hashCode();
+    }
 }

@@ -1,34 +1,41 @@
 package com.allaroundjava.cardops.domain.model;
 
 import com.allaroundjava.cardops.common.events.DomainEvent;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
-public interface CreditCardEvent extends DomainEvent {
-    CardNumber getCardId();
+public abstract class CreditCardEvent implements DomainEvent {
+    private final UUID eventID = UUID.randomUUID();
 
-    @Override
-    default String getAggregateId() {
+    abstract CardNumber getCardId();
+
+    public String getAggregateId() {
         return getCardId().getCardNumber();
     }
 
-    @Value
-    class Failure implements CreditCardEvent{
-        UUID eventId = UUID.randomUUID();
-        CardNumber cardId;
-        String message;
-        Instant when;
+    @Override
+    public UUID getEventId() {
+        return eventID;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    static class Failure extends CreditCardEvent{
+        private final CardNumber cardId;
+        private final String message;
+        private final Instant when;
         static Failure failNow(CardNumber cardId, String message) {
             return new Failure(cardId, message, Instant.now());
         }
     }
 
-    @Value
-    class LimitAssigned implements CreditCardEvent {
-        UUID eventId = UUID.randomUUID();
+    @Getter
+    @AllArgsConstructor
+    static class LimitAssigned extends CreditCardEvent {
         CardNumber cardId;
         BigDecimal limit;
         Instant when;
@@ -38,9 +45,9 @@ public interface CreditCardEvent extends DomainEvent {
         }
     }
 
-    @Value
-    class CardActivated implements CreditCardEvent {
-        UUID eventId = UUID.randomUUID();
+    @Getter
+    @AllArgsConstructor
+    static class CardActivated extends CreditCardEvent {
         CardNumber cardId;
         Instant when;
 
@@ -49,9 +56,9 @@ public interface CreditCardEvent extends DomainEvent {
         }
     }
 
-    @Value
-    class MoneyRepaid implements CreditCardEvent {
-        UUID eventId = UUID.randomUUID();
+    @Getter
+    @AllArgsConstructor
+    static class MoneyRepaid extends CreditCardEvent {
         CardNumber cardId;
         BigDecimal amountRepaid;
         Instant when;
@@ -61,9 +68,9 @@ public interface CreditCardEvent extends DomainEvent {
         }
     }
 
-    @Value
-    class MoneyWithdrawn implements CreditCardEvent {
-        UUID eventId = UUID.randomUUID();
+    @Getter
+    @AllArgsConstructor
+    static class MoneyWithdrawn extends CreditCardEvent {
         CardNumber cardId;
         BigDecimal amountWithdrawn;
         Instant when;
