@@ -15,6 +15,7 @@ public class WithdrawingService {
     private final CreditCardsRepository creditCardsRepository;
     private final DomainEventSender messageSender;
 
+    @Transactional
     public void withdraw(WithdrawCommand withdrawCommand) {
         creditCardsRepository.findById(withdrawCommand.getCardId())
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
