@@ -14,12 +14,12 @@ import java.util.function.Function;
 class CreditCardRepository implements CreditCardsRepository {
     final CreditCardInternalRepository creditCardInternalRepository;
 
-    public Optional<CreditCard> findById(Long id) {
+    public Optional<CreditCard> findById(String id) {
         return creditCardInternalRepository.findById(id).map(CreditCardEntity::toDomainModel);
     }
 
     public void save(CreditCardSnapshot creditCard) {
-        CreditCardEntity entity = creditCardInternalRepository.findById(creditCard.getId())
+        CreditCardEntity entity = creditCardInternalRepository.findById(creditCard.getId().getCardNumber())
                 .map(updateExisting(creditCard))
                 .orElse(createNew(creditCard));
         creditCardInternalRepository.save(entity);

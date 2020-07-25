@@ -5,6 +5,6 @@ import com.allaroundjava.cardops.domain.model.CreditCard;
 import java.util.Optional;
 
 public interface CreditCardsRepository {
-    Optional<CreditCard> findById(Long id);
+    Optional<CreditCard> findById(String id);
     void save(CreditCardSnapshot card);
 }

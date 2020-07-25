@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface CreditCardInternalRepository extends CrudRepository<CreditCardEntity, Long> {
+interface CreditCardInternalRepository extends CrudRepository<CreditCardEntity, String> {
 }
