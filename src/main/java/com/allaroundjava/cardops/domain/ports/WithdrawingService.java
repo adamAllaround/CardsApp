@@ -19,7 +19,7 @@ public class WithdrawingService {
     public void withdraw(WithdrawCommand withdrawCommand) {
         creditCardsRepository.findById(withdrawCommand.getCardId())
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
-                .map(this::publish)
+                .map(this::saveState)
                 .map(DomainObject::getEvents)
                 .ifPresent(this::informOthers);
     }
@@ -28,9 +28,8 @@ public class WithdrawingService {
         events.forEach(messageSender::send);
     }
 
-    private CreditCard publish(CreditCard creditCard) {
+    private CreditCard saveState(CreditCard creditCard) {
         creditCardsRepository.save(creditCard.snapshot());
-        //TODO publish events
         return creditCard;
     }
 }
