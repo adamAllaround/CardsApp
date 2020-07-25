@@ -5,7 +5,6 @@ import com.allaroundjava.cardops.domain.model.CardNumber;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import com.allaroundjava.cardops.domain.ports.RepayCommand;
 import com.allaroundjava.cardops.domain.ports.RepaymentService;
-import io.vavr.control.Try;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,9 +26,9 @@ public class RepaymentsController {
     private final RepaymentService repaymentService;
 
     @PostMapping("/{cardId}/repayments")
-    public ResponseEntity<RepaymentResponse> repay(@PathVariable CardNumber cardId, @RequestBody RepaymentRequest repayment) {
-        Result result = repaymentService.repay(new RepayCommand(cardId, repayment.getAmount()));
-        RepaymentResponse response = new RepaymentResponse(cardId.getCardNumber(), repayment.getAmount());
+    public ResponseEntity<RepaymentResponse> repay(@PathVariable String cardId, @RequestBody RepaymentRequest repayment) {
+        Result result = repaymentService.repay(new RepayCommand(CardNumber.from(cardId), repayment.getAmount()));
+        RepaymentResponse response = new RepaymentResponse(cardId, repayment.getAmount());
         if(result == Result.FAILURE) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
