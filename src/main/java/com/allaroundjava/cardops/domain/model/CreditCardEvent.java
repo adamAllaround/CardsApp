@@ -22,6 +22,11 @@ public abstract class CreditCardEvent implements DomainEvent {
         return eventID;
     }
 
+    @Override
+    public boolean isFailure() {
+        return this instanceof Failure;
+    }
+
     @Getter
     @AllArgsConstructor
     static class Failure extends CreditCardEvent{

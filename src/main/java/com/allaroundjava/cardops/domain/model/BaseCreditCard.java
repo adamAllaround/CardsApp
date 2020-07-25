@@ -1,6 +1,7 @@
 package com.allaroundjava.cardops.domain.model;
 
 import com.allaroundjava.cardops.common.events.DomainEvent;
+import com.allaroundjava.cardops.common.events.DomainEvents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,8 +20,8 @@ abstract class BaseCreditCard implements CreditCard {
         events.add(event);
     }
 
-    public List<DomainEvent> getEvents() {
-        List<DomainEvent> result = Collections.unmodifiableList(events);
+    public DomainEvents getEvents() {
+        DomainEvents result = new DomainEvents(Collections.unmodifiableList(events));
         events.clear();
         return result;
     }

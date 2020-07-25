@@ -11,4 +11,8 @@ import java.math.BigDecimal;
 public class WithdrawCommand {
     private final CardNumber cardId;
     private final BigDecimal amount;
+
+    String getCardNumber() {
+        return cardId.getCardNumber();
+    }
 }

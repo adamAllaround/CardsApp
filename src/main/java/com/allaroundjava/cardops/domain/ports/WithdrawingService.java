@@ -1,7 +1,9 @@
 package com.allaroundjava.cardops.domain.ports;
 
+import com.allaroundjava.cardops.common.command.Result;
 import com.allaroundjava.cardops.common.domain.DomainObject;
 import com.allaroundjava.cardops.common.events.DomainEvent;
+import com.allaroundjava.cardops.common.events.DomainEvents;
 import com.allaroundjava.cardops.domain.model.CreditCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +18,20 @@ public class WithdrawingService {
     private final DomainEventSender messageSender;
 
     @Transactional
-    public void withdraw(WithdrawCommand withdrawCommand) {
-        creditCardsRepository.findById(withdrawCommand.getCardId())
+    public Result withdraw(WithdrawCommand withdrawCommand) {
+        return creditCardsRepository.findById(withdrawCommand.getCardNumber())
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
                 .map(this::saveState)
                 .map(DomainObject::getEvents)
-                .ifPresent(this::informOthers);
+                .map(this::informOthers)
+                .filter(DomainEvents::hasSuccess)
+                .map(events -> Result.SUCCESS)
+                .orElse(Result.FAILURE);
     }
 
-    private void informOthers(List<DomainEvent> events) {
-        events.forEach(messageSender::send);
+    private DomainEvents informOthers(DomainEvents events) {
+        events.each(messageSender::send);
+        return events;
     }
 
     private CreditCard saveState(CreditCard creditCard) {

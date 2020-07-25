@@ -1,6 +1,7 @@
 package com.allaroundjava.cardops.adapters.api
 
 import com.allaroundjava.cardops.domain.model.ActiveCreditCard
+import com.allaroundjava.cardops.domain.model.CardNumber
 import com.allaroundjava.cardops.domain.ports.RepayCommand
 import com.allaroundjava.cardops.domain.ports.RepaymentService
 import org.springframework.http.HttpStatus
@@ -14,9 +15,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-class CreditCardControllerTest extends Specification {
+class RepaymentsControllerTest extends Specification {
     private RepaymentService repaying = Mock()
-    private CreditCardController repaymentController = new CreditCardController(repaying)
+    private RepaymentsController repaymentController = new RepaymentsController(repaying)
     private MockMvc mockMvc
 
     void setup() {
@@ -39,7 +40,7 @@ class CreditCardControllerTest extends Specification {
     def "Successfull Repayment"() {
         when: "Repaying a card"
         Long cardId = 1
-        repaying.repay(_ as RepayCommand) >> Optional.of(new ActiveCreditCard(1, 100, -50))
+        repaying.repay(_ as RepayCommand) >> Optional.of(new ActiveCreditCard(CardNumber.from("123"), BigDecimal.valueOf(100), BigDecimal.valueOf(-50)))
 
         then: "Repaying card successfully"
         mockMvc.perform(post("/creditcards/$cardId/repayments").content('{"amount" : 50}').contentType(MediaType.APPLICATION_JSON))

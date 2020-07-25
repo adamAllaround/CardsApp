@@ -1,9 +1,7 @@
 package com.allaroundjava.cardops.common.domain;
 
-import com.allaroundjava.cardops.common.events.DomainEvent;
-
-import java.util.List;
+import com.allaroundjava.cardops.common.events.DomainEvents;
 
 public interface DomainObject {
-    List<DomainEvent> getEvents();
+    DomainEvents getEvents();
 }

@@ -10,4 +10,6 @@ public interface DomainEvent {
     String getAggregateId();
 
     Instant getWhen();
+
+    boolean isFailure();
 }
