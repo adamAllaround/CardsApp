@@ -1,5 +1,6 @@
 package com.allaroundjava.cardops.adapters.api
 
+import com.allaroundjava.cardops.common.command.Result
 import com.allaroundjava.cardops.domain.model.ActiveCreditCard
 import com.allaroundjava.cardops.domain.model.CardNumber
 import com.allaroundjava.cardops.domain.ports.RepayCommand
@@ -24,27 +25,23 @@ class RepaymentsControllerTest extends Specification {
         this.mockMvc = MockMvcBuilders.standaloneSetup(repaymentController).build()
     }
 
-    def "when Card not exists then Bad Request"() {
+    def "when failed to repay then bad request"() {
         when: "non existent card"
-        Long cardId = 1
-        repaying.repay(_ as RepayCommand) >> Optional.empty()
+        String cardId = "12df"
+        repaying.repay(_ as RepayCommand) >> Result.FAILURE
         then: "Repaying a card through controller request"
         mockMvc.perform(post("/creditcards/$cardId/repayments").content('{"amount" : 500}').contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
     }
 
-    def "When Overpaying then Bad Request"() {
-
-    }
-
     def "Successfull Repayment"() {
         when: "Repaying a card"
-        Long cardId = 1
-        repaying.repay(_ as RepayCommand) >> Optional.of(new ActiveCreditCard(CardNumber.from("123"), BigDecimal.valueOf(100), BigDecimal.valueOf(-50)))
+        String cardId = "4rt5"
+        repaying.repay(_ as RepayCommand) >> Result.SUCCESS
 
         then: "Repaying card successfully"
         mockMvc.perform(post("/creditcards/$cardId/repayments").content('{"amount" : 50}').contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString("100")))
+        .andExpect(content().string(containsString("50")))
     }
 }

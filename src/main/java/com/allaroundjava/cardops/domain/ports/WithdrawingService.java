@@ -2,13 +2,10 @@ package com.allaroundjava.cardops.domain.ports;
 
 import com.allaroundjava.cardops.common.command.Result;
 import com.allaroundjava.cardops.common.domain.DomainObject;
-import com.allaroundjava.cardops.common.events.DomainEvent;
 import com.allaroundjava.cardops.common.events.DomainEvents;
 import com.allaroundjava.cardops.domain.model.CreditCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional

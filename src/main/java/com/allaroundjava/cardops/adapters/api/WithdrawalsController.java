@@ -32,7 +32,7 @@ class WithdrawalsController {
 //                .collect(Collectors.toList()));
 //    }
 
-    @PostMapping("/{cardId}")
+    @PostMapping("/{cardNumber}")
     ResponseEntity<WithdrawalResponse> withdraw(@PathVariable String cardNumber, @RequestBody WithdrawalRequest request) {
         Result result = withdrawingService.withdraw(new WithdrawCommand(CardNumber.from(cardNumber), request.getAmount()));
         if (result == Result.FAILURE) {

@@ -54,7 +54,8 @@ class CreditCard {
     }
 }
 
-@Value
+@Getter
+@Setter
 class RepaymentRequest {
     BigDecimal amount;
 }

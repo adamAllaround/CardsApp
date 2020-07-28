@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class WithdrawalsControllerTest extends Specification {
-    public static final long CARD_ID = 1L
+    public static final String CARD_ID = "asd1"
     private MockMvc mockMvc
     private WithdrawingService withdrawing = Mock()
     private WithdrawalsController withdrawalsController = new WithdrawalsController(withdrawing)
 
     void setup() {
-        mockMvc = new MockMvcBuilders().standaloneSetup(withdrawalsController).build()
+        mockMvc = MockMvcBuilders.standaloneSetup(withdrawalsController).build()
     }
 
 //    def "Listing withdrawals for Nonexistent card"() {
@@ -43,7 +43,7 @@ class WithdrawalsControllerTest extends Specification {
 //    }
 
     def "Withdrawing invalid amount form a card"() {
-        when : "Withdrawing didn't go well"
+        when: "Withdrawing didn't go well"
         withdrawing.withdraw(_ as WithdrawCommand) >> Result.FAILURE
 
         then: "Bad Request"
@@ -51,13 +51,14 @@ class WithdrawalsControllerTest extends Specification {
                 .andExpect(status().is(HttpStatus.BAD_REQUEST.value()))
     }
 
-    def "Withdrawing succeccsully"() {
+    def "Withdrawing successfully"() {
         when: "Withdrawing successfully"
         withdrawing.withdraw(_ as WithdrawCommand) >> Result.SUCCESS
 
         then: "OK"
         mockMvc.perform(post("/withdrawals/$CARD_ID").content('{"amount" : 200}').contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(content().string(containsString("200")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("200"))).andReturn()
+
     }
 }
