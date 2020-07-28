@@ -13,7 +13,7 @@ public class DomainEvents {
         return events.stream().noneMatch(DomainEvent::isFailure);
     }
 
-    public void each(Consumer<DomainEvent> consumer) {
+    public void forEachConsume(Consumer<DomainEvent> consumer) {
         events.forEach(consumer);
     }
 }

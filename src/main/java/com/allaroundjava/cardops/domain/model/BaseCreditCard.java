@@ -21,7 +21,7 @@ abstract class BaseCreditCard implements CreditCard {
     }
 
     public DomainEvents getEvents() {
-        DomainEvents result = new DomainEvents(Collections.unmodifiableList(events));
+        DomainEvents result = new DomainEvents(new ArrayList<>(events));
         events.clear();
         return result;
     }

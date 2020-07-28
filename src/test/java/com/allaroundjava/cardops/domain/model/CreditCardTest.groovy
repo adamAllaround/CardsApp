@@ -1,5 +1,6 @@
 package com.allaroundjava.cardops.domain.model
 
+
 import spock.lang.Specification
 
 class CreditCardTest extends Specification {
@@ -13,7 +14,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.assignLimit(BigDecimal.valueOf(100))
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
+        creditCard.getEvents().forEachConsume({ assert it instanceof CreditCardEvent.Failure })
     }
 
     def "can assign limit"() {
@@ -22,7 +23,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.assignLimit(BigDecimal.valueOf(100))
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.LimitAssigned}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.LimitAssigned })
 
     }
 
@@ -30,7 +31,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.withdraw(BigDecimal.TEN)
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.Failure })
     }
 
     def "when more than limit then cannot withdraw"() {
@@ -40,7 +41,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.withdraw(BigDecimal.valueOf(11))
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.Failure })
     }
 
     def "can withdraw"() {
@@ -50,7 +51,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.withdraw(BigDecimal.TEN)
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.MoneyWithdrawn}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.MoneyWithdrawn })
     }
 
 
@@ -62,7 +63,7 @@ class CreditCardTest extends Specification {
         when:
         creditCard.repayMoney(BigDecimal.valueOf(12))
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.Failure}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.Failure })
     }
 
     def "can repay"() {
@@ -73,6 +74,6 @@ class CreditCardTest extends Specification {
         when:
         creditCard.repayMoney(BigDecimal.valueOf(8))
         then:
-        creditCard.getEvents().every {it instanceof CreditCardEvent.MoneyRepaid}
+        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.MoneyRepaid })
     }
 }

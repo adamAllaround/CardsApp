@@ -25,7 +25,7 @@ public class RepaymentService {
     }
 
     private DomainEvents informOthers(DomainEvents domainEvents) {
-        domainEvents.each(messageSender::send);
+        domainEvents.forEachConsume(messageSender::send);
         return domainEvents;
     }
 

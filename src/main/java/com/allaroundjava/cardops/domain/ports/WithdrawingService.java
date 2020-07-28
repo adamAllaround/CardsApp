@@ -27,7 +27,7 @@ public class WithdrawingService {
     }
 
     private DomainEvents informOthers(DomainEvents events) {
-        events.each(messageSender::send);
+        events.forEachConsume(messageSender::send);
         return events;
     }
 
