@@ -17,4 +17,12 @@ public interface CreditCard extends DomainObject {
     String getCardNumber();
 
     CreditCardSnapshot snapshot();
+
+    static CreditCard active(String id, BigDecimal limit, BigDecimal currentAmount) {
+        return new ActiveCreditCard(id, limit, currentAmount);
+    }
+
+    static CreditCard inactive(String id) {
+        return new InactiveCreditCard(id);
+    }
 }

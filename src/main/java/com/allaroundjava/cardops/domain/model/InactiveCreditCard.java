@@ -9,9 +9,9 @@ import static com.allaroundjava.cardops.domain.model.CreditCardEvent.CardActivat
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.Failure.failNow;
 
 @Getter
-public class InactiveCreditCard extends BaseCreditCard {
+class InactiveCreditCard extends BaseCreditCard {
 
-    public InactiveCreditCard(String cardNumber) {
+    InactiveCreditCard(String cardNumber) {
         super(cardNumber);
     }
 

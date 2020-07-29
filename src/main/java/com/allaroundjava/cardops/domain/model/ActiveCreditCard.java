@@ -11,11 +11,11 @@ import static com.allaroundjava.cardops.domain.model.CreditCardEvent.MoneyRepaid
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.MoneyWithdrawn.withdrawNow;
 
 @Getter
-public class ActiveCreditCard extends BaseCreditCard {
+class ActiveCreditCard extends BaseCreditCard {
     private final BigDecimal limit;
     private final BigDecimal currentAmount;
 
-    public ActiveCreditCard(String id, BigDecimal limit, BigDecimal currentAmount) {
+    ActiveCreditCard(String id, BigDecimal limit, BigDecimal currentAmount) {
         super(id);
         this.limit = limit;
         this.currentAmount = currentAmount;

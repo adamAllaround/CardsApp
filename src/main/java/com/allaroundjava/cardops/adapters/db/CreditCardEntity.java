@@ -1,8 +1,6 @@
 package com.allaroundjava.cardops.adapters.db;
 
-import com.allaroundjava.cardops.domain.model.ActiveCreditCard;
 import com.allaroundjava.cardops.domain.model.CreditCard;
-import com.allaroundjava.cardops.domain.model.InactiveCreditCard;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,20 +36,12 @@ class CreditCardEntity {
     CreditCard toDomainModel() {
         switch (state) {
             case ACTIVE:
-                return toActiveCard();
+                return CreditCard.active(id, limitAmount, currentAmount);
             case INACTIVE:
-                return toInactiveCard();
+                return CreditCard.inactive(id);
             default:
                 throw new CreditCardDatabaseException();
         }
-    }
-
-    private CreditCard toActiveCard() {
-        return new ActiveCreditCard(id, limitAmount, currentAmount);
-    }
-
-    private CreditCard toInactiveCard() {
-        return new InactiveCreditCard(id);
     }
 
     private static CreditCardState getState(CreditCardSnapshot creditCard) {
