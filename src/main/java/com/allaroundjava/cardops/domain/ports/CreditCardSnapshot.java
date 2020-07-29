@@ -1,23 +1,21 @@
 package com.allaroundjava.cardops.domain.ports;
 
-import com.allaroundjava.cardops.domain.model.CardNumber;
-
 import java.math.BigDecimal;
 
 public class CreditCardSnapshot {
-    private CardNumber id;
+    private String id;
     private BigDecimal currentAmount;
     private BigDecimal limit;
     private boolean active;
 
-    private CreditCardSnapshot(CardNumber id, BigDecimal currentAmount, BigDecimal limit, boolean active) {
+    private CreditCardSnapshot(String id, BigDecimal currentAmount, BigDecimal limit, boolean active) {
         this.id = id;
         this.currentAmount = currentAmount;
         this.limit = limit;
         this.active = active;
     }
 
-    public CardNumber getId() {
+    public String getId() {
         return id;
     }
 
@@ -29,11 +27,11 @@ public class CreditCardSnapshot {
         return limit;
     }
 
-    public static CreditCardSnapshot inactive(CardNumber id, BigDecimal currentAmount, BigDecimal limit) {
+    public static CreditCardSnapshot inactive(String id, BigDecimal currentAmount, BigDecimal limit) {
         return new CreditCardSnapshot(id, currentAmount, limit, false);
     }
 
-    public static CreditCardSnapshot active(CardNumber id, BigDecimal currentAmount, BigDecimal limit) {
+    public static CreditCardSnapshot active(String id, BigDecimal currentAmount, BigDecimal limit) {
         return new CreditCardSnapshot(id, currentAmount, limit, true);
     }
 

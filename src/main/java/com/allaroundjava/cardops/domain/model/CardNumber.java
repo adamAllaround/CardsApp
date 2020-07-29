@@ -3,10 +3,10 @@ package com.allaroundjava.cardops.domain.model;
 import lombok.Getter;
 
 @Getter
-public final class CardNumber {
+final class CardNumber {
     private final String cardNumber;
 
-    CardNumber(String cardNumber) {
+    private CardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

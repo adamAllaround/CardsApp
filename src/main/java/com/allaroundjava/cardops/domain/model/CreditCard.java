@@ -14,7 +14,7 @@ public interface CreditCard extends DomainObject {
 
     CreditCard activate();
 
-    CardNumber getId();
+    String getCardNumber();
 
     CreditCardSnapshot snapshot();
 }

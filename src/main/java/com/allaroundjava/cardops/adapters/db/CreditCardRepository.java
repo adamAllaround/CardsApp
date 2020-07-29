@@ -19,7 +19,7 @@ class CreditCardRepository implements CreditCardsRepository {
     }
 
     public void save(CreditCardSnapshot creditCard) {
-        CreditCardEntity entity = creditCardInternalRepository.findById(creditCard.getId().getCardNumber())
+        CreditCardEntity entity = creditCardInternalRepository.findById(creditCard.getId())
                 .map(updateExisting(creditCard))
                 .orElse(createNew(creditCard));
         creditCardInternalRepository.save(entity);

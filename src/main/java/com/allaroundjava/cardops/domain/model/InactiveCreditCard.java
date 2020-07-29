@@ -11,36 +11,36 @@ import static com.allaroundjava.cardops.domain.model.CreditCardEvent.Failure.fai
 @Getter
 public class InactiveCreditCard extends BaseCreditCard {
 
-    public InactiveCreditCard(CardNumber cardNumber) {
+    public InactiveCreditCard(String cardNumber) {
         super(cardNumber);
     }
 
     @Override
     public CreditCard assignLimit(BigDecimal limit) {
-        addEvent(failNow(getId(), "Cannot assign limit to inactive credit card"));
+        addEvent(failNow(getCardNumber(), "Cannot assign limit to inactive credit card"));
         return this;
     }
 
     @Override
     public CreditCard repayMoney(BigDecimal amount) {
-        addEvent(failNow(getId(), "Cannot repay money on inactive credit card"));
+        addEvent(failNow(getCardNumber(), "Cannot repay money on inactive credit card"));
         return this;
     }
 
     @Override
     public CreditCard withdraw(BigDecimal amount) {
-        addEvent(failNow(getId(), "Cannot withdraw from inactive credit card"));
+        addEvent(failNow(getCardNumber(), "Cannot withdraw from inactive credit card"));
         return this;
     }
 
     @Override
     public CreditCard activate() {
-        addEvent(activateNow(getId()));
-        return new ActiveCreditCard(getId(), BigDecimal.ZERO, BigDecimal.ZERO);
+        addEvent(activateNow(getCardNumber()));
+        return new ActiveCreditCard(getCardNumber(), BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
     @Override
     public CreditCardSnapshot snapshot() {
-        return CreditCardSnapshot.inactive(getId(), BigDecimal.ZERO, BigDecimal.ZERO);
+        return CreditCardSnapshot.inactive(getCardNumber(), BigDecimal.ZERO, BigDecimal.ZERO);
     }
 }

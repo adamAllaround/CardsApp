@@ -11,10 +11,10 @@ import java.util.UUID;
 public abstract class CreditCardEvent implements DomainEvent {
     private final UUID eventID = UUID.randomUUID();
 
-    abstract CardNumber getCardId();
+    abstract String getCardId();
 
     public String getAggregateId() {
-        return getCardId().getCardNumber();
+        return getCardId();
     }
 
     @Override
@@ -30,10 +30,10 @@ public abstract class CreditCardEvent implements DomainEvent {
     @Getter
     @AllArgsConstructor
     static class Failure extends CreditCardEvent{
-        private final CardNumber cardId;
+        private final String cardId;
         private final String message;
         private final Instant when;
-        static Failure failNow(CardNumber cardId, String message) {
+        static Failure failNow(String cardId, String message) {
             return new Failure(cardId, message, Instant.now());
         }
     }
@@ -41,11 +41,11 @@ public abstract class CreditCardEvent implements DomainEvent {
     @Getter
     @AllArgsConstructor
     static class LimitAssigned extends CreditCardEvent {
-        CardNumber cardId;
+        String cardId;
         BigDecimal limit;
         Instant when;
 
-        static LimitAssigned assignLimitNow(CardNumber cardId, BigDecimal limit) {
+        static LimitAssigned assignLimitNow(String cardId, BigDecimal limit) {
             return new LimitAssigned(cardId, limit, Instant.now());
         }
     }
@@ -53,10 +53,10 @@ public abstract class CreditCardEvent implements DomainEvent {
     @Getter
     @AllArgsConstructor
     static class CardActivated extends CreditCardEvent {
-        CardNumber cardId;
+        String cardId;
         Instant when;
 
-        static CardActivated activateNow(CardNumber cardId) {
+        static CardActivated activateNow(String cardId) {
             return new CardActivated(cardId, Instant.now());
         }
     }
@@ -64,11 +64,11 @@ public abstract class CreditCardEvent implements DomainEvent {
     @Getter
     @AllArgsConstructor
     static class MoneyRepaid extends CreditCardEvent {
-        CardNumber cardId;
+        String cardId;
         BigDecimal amountRepaid;
         Instant when;
 
-        static MoneyRepaid repayNow(CardNumber cardId, BigDecimal amount) {
+        static MoneyRepaid repayNow(String cardId, BigDecimal amount) {
             return new MoneyRepaid(cardId, amount, Instant.now());
         }
     }
@@ -76,11 +76,11 @@ public abstract class CreditCardEvent implements DomainEvent {
     @Getter
     @AllArgsConstructor
     static class MoneyWithdrawn extends CreditCardEvent {
-        CardNumber cardId;
+        String cardId;
         BigDecimal amountWithdrawn;
         Instant when;
 
-        static MoneyWithdrawn withdrawNow(CardNumber cardId, BigDecimal amount) {
+        static MoneyWithdrawn withdrawNow(String cardId, BigDecimal amount) {
             return new MoneyWithdrawn(cardId, amount, Instant.now());
         }
     }

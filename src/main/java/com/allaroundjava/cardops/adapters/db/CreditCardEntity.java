@@ -1,7 +1,6 @@
 package com.allaroundjava.cardops.adapters.db;
 
 import com.allaroundjava.cardops.domain.model.ActiveCreditCard;
-import com.allaroundjava.cardops.domain.model.CardNumber;
 import com.allaroundjava.cardops.domain.model.CreditCard;
 import com.allaroundjava.cardops.domain.model.InactiveCreditCard;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
@@ -9,13 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -54,11 +47,11 @@ class CreditCardEntity {
     }
 
     private CreditCard toActiveCard() {
-        return new ActiveCreditCard(CardNumber.from(id), limitAmount, currentAmount);
+        return new ActiveCreditCard(id, limitAmount, currentAmount);
     }
 
     private CreditCard toInactiveCard() {
-        return new InactiveCreditCard(CardNumber.from(id));
+        return new InactiveCreditCard(id);
     }
 
     private static CreditCardState getState(CreditCardSnapshot creditCard) {

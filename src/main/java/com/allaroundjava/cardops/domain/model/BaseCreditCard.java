@@ -4,15 +4,14 @@ import com.allaroundjava.cardops.common.events.DomainEvent;
 import com.allaroundjava.cardops.common.events.DomainEvents;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 abstract class BaseCreditCard implements CreditCard {
     private final List<DomainEvent> events;
-    private final CardNumber id;
+    private final CardNumber cardNumber;
 
-    BaseCreditCard(CardNumber id) {
-        this.id = id;
+    BaseCreditCard(String cardNumber) {
+        this.cardNumber = CardNumber.from(cardNumber);
         events = new ArrayList<>();
     }
 
@@ -27,8 +26,8 @@ abstract class BaseCreditCard implements CreditCard {
     }
 
     @Override
-    public CardNumber getId() {
-        return this.id;
+    public String getCardNumber() {
+        return this.cardNumber.getCardNumber();
     }
 
     @Override
@@ -38,11 +37,11 @@ abstract class BaseCreditCard implements CreditCard {
 
         BaseCreditCard that = (BaseCreditCard) o;
 
-        return id.equals(that.id);
+        return cardNumber.equals(that.cardNumber);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return cardNumber.hashCode();
     }
 }

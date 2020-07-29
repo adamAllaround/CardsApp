@@ -14,7 +14,7 @@ public class RepaymentService {
 
     @Transactional
     public Result repay(RepayCommand command) {
-        return creditCardsRepository.findById(command.getCardNumber())
+        return creditCardsRepository.findById(command.getCardId())
                 .map(card -> card.repayMoney(command.getAmount()))
                 .map(this::saveState)
                 .map(DomainObject::getEvents)

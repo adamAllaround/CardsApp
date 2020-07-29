@@ -15,7 +15,7 @@ public class ActiveCreditCard extends BaseCreditCard {
     private final BigDecimal limit;
     private final BigDecimal currentAmount;
 
-    public ActiveCreditCard(CardNumber id, BigDecimal limit, BigDecimal currentAmount) {
+    public ActiveCreditCard(String id, BigDecimal limit, BigDecimal currentAmount) {
         super(id);
         this.limit = limit;
         this.currentAmount = currentAmount;
@@ -23,28 +23,28 @@ public class ActiveCreditCard extends BaseCreditCard {
 
     @Override
     public CreditCard assignLimit(BigDecimal limit) {
-        addEvent(assignLimitNow(getId(), limit));
-        return new ActiveCreditCard(getId(), limit, this.currentAmount);
+        addEvent(assignLimitNow(getCardNumber(), limit));
+        return new ActiveCreditCard(getCardNumber(), limit, this.currentAmount);
     }
 
     @Override
     public CreditCard repayMoney(BigDecimal amount) {
         if (amount.compareTo(currentAmount.abs()) > 0) {
-            addEvent(failNow(getId(), "Cannot Repay more than is owed"));
+            addEvent(failNow(getCardNumber(), "Cannot Repay more than is owed"));
             return this;
         }
-        addEvent(repayNow(getId(), amount));
-        return new ActiveCreditCard(getId(), this.limit, currentAmount.add(amount));
+        addEvent(repayNow(getCardNumber(), amount));
+        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.add(amount));
     }
 
     @Override
     public CreditCard withdraw(BigDecimal amount) {
         if (currentAmount.subtract(amount).compareTo(limit.negate()) < 0) {
-            addEvent(failNow(getId(), "Cannot withdraw that amount"));
+            addEvent(failNow(getCardNumber(), "Cannot withdraw that amount"));
             return this;
         }
-        addEvent(withdrawNow(getId(), amount));
-        return new ActiveCreditCard(getId(), this.limit, currentAmount.subtract(amount));
+        addEvent(withdrawNow(getCardNumber(), amount));
+        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.subtract(amount));
     }
 
     @Override
@@ -54,6 +54,6 @@ public class ActiveCreditCard extends BaseCreditCard {
 
     @Override
     public CreditCardSnapshot snapshot() {
-        return CreditCardSnapshot.active(getId(), this.currentAmount, this.limit);
+        return CreditCardSnapshot.active(getCardNumber(), this.currentAmount, this.limit);
     }
 }
