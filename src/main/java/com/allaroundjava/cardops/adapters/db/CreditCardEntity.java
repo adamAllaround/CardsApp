@@ -4,14 +4,13 @@ import com.allaroundjava.cardops.domain.model.CreditCard;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "CREDIT_CARD")
+@Document(collection = "creditcard")
 @Getter
 @Setter
 class CreditCardEntity {
@@ -20,18 +19,15 @@ class CreditCardEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+    private String id;
 
-    @CreationTimestamp
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
-    @Enumerated(EnumType.STRING)
-    CreditCardState state;
+    private CreditCardState state;
 
-    BigDecimal limitAmount;
+    private BigDecimal limitAmount;
 
-    BigDecimal currentAmount;
+    private BigDecimal currentAmount;
 
     CreditCard toDomainModel() {
         switch (state) {

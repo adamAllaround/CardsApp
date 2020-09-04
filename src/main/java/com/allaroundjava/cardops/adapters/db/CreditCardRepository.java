@@ -4,6 +4,7 @@ import com.allaroundjava.cardops.domain.model.CreditCard;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import com.allaroundjava.cardops.domain.ports.CreditCardsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
