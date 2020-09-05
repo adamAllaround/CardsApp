@@ -1,9 +1,11 @@
 package com.allaroundjava.cardops.domain.model;
 
+import com.allaroundjava.cardops.common.events.DomainEvents;
 import com.allaroundjava.cardops.domain.ports.CreditCardSnapshot;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.Failure.failNow;
 import static com.allaroundjava.cardops.domain.model.CreditCardEvent.LimitAssigned.assignLimitNow;
@@ -16,9 +18,14 @@ class ActiveCreditCard extends BaseCreditCard {
     private final BigDecimal currentAmount;
 
     ActiveCreditCard(String id, BigDecimal limit, BigDecimal currentAmount) {
+        this(id, limit, currentAmount, new DomainEvents(new ArrayList<>()));
+    }
+
+    private ActiveCreditCard(String id, BigDecimal limit, BigDecimal currentAmount, DomainEvents domainEvents) {
         super(id);
         this.limit = limit;
         this.currentAmount = currentAmount;
+        domainEvents.forEachConsume(this::addEvent);
     }
 
     @Override
@@ -44,7 +51,7 @@ class ActiveCreditCard extends BaseCreditCard {
             return this;
         }
         addEvent(withdrawNow(getCardNumber(), amount));
-        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.subtract(amount));
+        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.subtract(amount), getEvents());
     }
 
     @Override

@@ -7,7 +7,7 @@ class CreditCardTest extends Specification {
     CreditCard creditCard
 
     void setup() {
-        creditCard = new InactiveCreditCard()
+        creditCard = new InactiveCreditCard("1234")
     }
 
     def "when card not active then cannot assign limit"() {

@@ -10,10 +10,8 @@ import com.allaroundjava.cardops.domain.ports.WithdrawingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.allaroundjava.cardops.adapters.db"})
 @ComponentScan(basePackages = {"com.allaroundjava.cardops.adapters.db", "com.allaroundjava.cardops.adapters.api", "com.allaroundjava.cardops.adapters.messaging"})
 public class AppConfig {
     @Bean

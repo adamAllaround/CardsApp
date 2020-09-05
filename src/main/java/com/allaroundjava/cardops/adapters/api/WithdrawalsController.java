@@ -17,15 +17,6 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 class WithdrawalsController {
     private final WithdrawingService withdrawingService;
-//    private final WithdrawalsRepository withdrawalsRepository;
-//
-//    @GetMapping("/{cardId}")
-//    ResponseEntity<Collection<Withdrawal>> listWithdrawals(@PathVariable Long cardId) {
-//        return ResponseEntity.ok(withdrawalsRepository.findAllByCardId(cardId)
-//                .stream()
-//                .map(Withdrawal::new)
-//                .collect(Collectors.toList()));
-//    }
 
     @PostMapping("/{cardNumber}")
     ResponseEntity<WithdrawalResponse> withdraw(@PathVariable String cardNumber, @RequestBody WithdrawalRequest request) {
@@ -36,7 +27,6 @@ class WithdrawalsController {
 
         return ResponseEntity.ok(new WithdrawalResponse(cardNumber, request.amount));
     }
-
 }
 
 @Getter

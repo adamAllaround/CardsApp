@@ -20,8 +20,8 @@ public class WithdrawingService {
                 .map(creditCard -> creditCard.withdraw(withdrawCommand.getAmount()))
                 .map(this::saveState)
                 .map(DomainObject::getEvents)
-                .map(this::informOthers)
                 .filter(DomainEvents::hasSuccess)
+                .map(this::informOthers)
                 .map(events -> Result.SUCCESS)
                 .orElse(Result.FAILURE);
     }
