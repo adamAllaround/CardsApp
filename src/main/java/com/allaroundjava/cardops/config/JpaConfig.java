@@ -2,7 +2,6 @@ package com.allaroundjava.cardops.config;
 
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class JpaConfig {
 //    @Bean
 //    LocalContainerEntityManagerFactoryBean entityManagerFactory() {

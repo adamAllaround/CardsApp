@@ -6,6 +6,7 @@ import com.allaroundjava.cardops.adapters.messaging.StoreAndForwardMessageSender
 import com.allaroundjava.cardops.domain.ports.CreditCardsRepository;
 import com.allaroundjava.cardops.domain.ports.DomainEventSender;
 import com.allaroundjava.cardops.domain.ports.EventsStorage;
+import com.allaroundjava.cardops.domain.ports.RepaymentService;
 import com.allaroundjava.cardops.domain.ports.WithdrawingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,7 +21,12 @@ public class AppConfig {
     }
 
     @Bean
-    DomainEventSender storeAndForwardMessageSender(EventsStorage storage) {
+    RepaymentService createRepayment(CreditCardsRepository creditCardsRepository, DomainEventSender messageSender) {
+        return new RepaymentService(creditCardsRepository, messageSender);
+    }
+
+    @Bean
+    DomainEventSender messageSender(EventsStorage storage) {
         return new StoreAndForwardMessageSender(new KafkaMessageSender(), storage);
     }
 

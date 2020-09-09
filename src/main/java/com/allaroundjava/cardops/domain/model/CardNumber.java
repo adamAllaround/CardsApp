@@ -10,7 +10,7 @@ final class CardNumber {
         this.cardNumber = cardNumber;
     }
 
-    public static CardNumber from(String cardNumber) {
+    static CardNumber from(String cardNumber) {
         if (enoughNumbers(cardNumber) && regexMatch(cardNumber)) {
             return new CardNumber(cardNumber);
         }
@@ -18,7 +18,7 @@ final class CardNumber {
     }
 
     private static boolean enoughNumbers(String cardNumber) {
-        return cardNumber.length() == 4; // just for illustration
+        return !cardNumber.isEmpty(); // just for illustration
     }
 
     private static boolean regexMatch(String cardNumber) {
