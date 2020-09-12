@@ -14,6 +14,7 @@ public class StoreAndForwardMessageSender implements DomainEventSender {
     @Override
     public void send(DomainEvent event) {
         eventsStorage.save(event);
+        publishSingle(event);
     }
 
     @Transactional
