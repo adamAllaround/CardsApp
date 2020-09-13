@@ -41,7 +41,7 @@ class ActiveCreditCard extends BaseCreditCard {
             return this;
         }
         addEvent(repayNow(getCardNumber(), amount));
-        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.add(amount));
+        return new ActiveCreditCard(getCardNumber(), this.limit, currentAmount.add(amount), getEvents());
     }
 
     @Override

@@ -74,6 +74,11 @@ class CreditCardTest extends Specification {
         when:
         creditCard.repayMoney(BigDecimal.valueOf(8))
         then:
-        creditCard.getEvents().forEachConsume({ it instanceof CreditCardEvent.MoneyRepaid })
+        creditCard.getEvents()
+                .forEachConsume({ it instanceof CreditCardEvent.MoneyRepaid })
+        and:
+        creditCard.withdraw(BigDecimal.valueOf(8))
+                .getEvents()
+                .forEachConsume{ it instanceof CreditCardEvent.MoneyWithdrawn}
     }
 }

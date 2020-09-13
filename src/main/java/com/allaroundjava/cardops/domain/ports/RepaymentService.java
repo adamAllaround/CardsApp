@@ -18,8 +18,8 @@ public class RepaymentService {
                 .map(card -> card.repayMoney(command.getAmount()))
                 .map(this::saveState)
                 .map(DomainObject::getEvents)
-                .map(this::informOthers)
                 .filter(DomainEvents::hasSuccess)
+                .map(this::informOthers)
                 .map(events -> Result.SUCCESS)
                 .orElse(Result.FAILURE);
     }
