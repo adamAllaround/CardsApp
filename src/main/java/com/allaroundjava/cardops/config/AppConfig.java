@@ -28,7 +28,7 @@ public class AppConfig {
     }
 
     @Bean
-    DomainEventSender messageSender(KafkaTemplate<String, Object> kafkaTemplate, EventsStorage storage, @Value("cardops.topic") String topic) {
+    DomainEventSender messageSender(KafkaTemplate<String, Object> kafkaTemplate, EventsStorage storage, @Value("${cardops.topic}") String topic) {
         return new StoreAndForwardMessageSender(new KafkaEventSender(kafkaTemplate, topic), storage);
     }
 
