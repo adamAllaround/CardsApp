@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 class WithdrawalService {
 
     @KafkaListener(topics = "${cardops.topic}")
-    public void grabWithdrawal(@Payload String message) {
-        System.out.println("Received "+ message);
+    public void grabWithdrawal(@Payload WithdrawalMessage message) {
+        System.out.println("Received withdrawal on"+ message.getAggregateId());
     }
 }
