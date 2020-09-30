@@ -11,16 +11,18 @@ import java.time.ZoneOffset;
 @Document(collection="operations")
 @Setter
 @Getter
-class WithdrawalEntity {
+class OperationEntity {
     private String cardId;
     private BigDecimal amount;
     private LocalDateTime when;
+    private String type;
 
-    static WithdrawalEntity from(WithdrawalMessage message) {
-        WithdrawalEntity entity = new WithdrawalEntity();
+    static OperationEntity from(Operation message) {
+        OperationEntity entity = new OperationEntity();
         entity.setCardId(message.getAggregateId());
-        entity.setAmount(message.getAmountWithdrawn().negate());
+        entity.setAmount(message.getAmount());
         entity.setWhen(LocalDateTime.ofInstant(message.getWhen(), ZoneOffset.UTC));
+        entity.setType(message.getType());
         return entity;
     }
 }

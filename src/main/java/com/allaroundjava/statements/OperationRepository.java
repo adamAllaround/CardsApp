@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface WithdrawalRepository extends MongoRepository<WithdrawalEntity, String> {
-    List<WithdrawalEntity> findByCardId(String cardId);
+public interface OperationRepository extends MongoRepository<OperationEntity, String> {
+    List<OperationEntity> findByCardId(String cardId);
 }

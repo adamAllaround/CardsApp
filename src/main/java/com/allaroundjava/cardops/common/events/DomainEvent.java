@@ -12,4 +12,6 @@ public interface DomainEvent {
     Instant getWhen();
 
     boolean isFailure();
+
+    String getType();
 }

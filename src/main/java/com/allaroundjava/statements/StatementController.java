@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/statements")
 @RequiredArgsConstructor
 public class StatementController {
-    private final WithdrawalRepository repository;
+    private final OperationRepository repository;
 
     @GetMapping("/{cardId}")
-    public ResponseEntity<List<Operation>> getAllOperations(@PathVariable String cardId) {
-        List<WithdrawalEntity> withdrawals = repository.findByCardId(cardId);
-        List<Operation> operations = withdrawals.stream().map(Operation::new).collect(Collectors.toList());
+    public ResponseEntity<List<OperationView>> getAllOperations(@PathVariable String cardId) {
+        List<OperationEntity> withdrawals = repository.findByCardId(cardId);
+        List<OperationView> operations = withdrawals.stream().map(OperationView::new).collect(Collectors.toList());
 
         return ResponseEntity.ok(operations);
     }
@@ -35,13 +35,13 @@ public class StatementController {
 @Getter
 @Setter
 @NoArgsConstructor
-class Operation {
+class OperationView {
     String type;
     BigDecimal value;
     LocalDateTime when;
 
-    Operation(WithdrawalEntity entity) {
-        this.type = "Withdrawal";
+    OperationView(OperationEntity entity) {
+        this.type = entity.getType();
         this.value = entity.getAmount();
         this.when = entity.getWhen();
     }

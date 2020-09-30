@@ -36,9 +36,9 @@ class StatementsConfig {
         return props;
     }
 
-    private ConsumerFactory<String, WithdrawalMessage> consumerFactory() {
+    private ConsumerFactory<String, Operation> consumerFactory() {
 
-        JsonDeserializer<WithdrawalMessage> deserializer = new JsonDeserializer<>(WithdrawalMessage.class);
+        JsonDeserializer<Operation> deserializer = new JsonDeserializer<>(Operation.class);
         deserializer.addTrustedPackages("com.allaroundjava.cardops.*");
         deserializer.ignoreTypeHeaders();
 
@@ -48,8 +48,8 @@ class StatementsConfig {
     }
 
     @Bean
-    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, WithdrawalMessage>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, WithdrawalMessage> factory =
+    KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Operation>> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Operation> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
